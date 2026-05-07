@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADYA DEPOK - ABSEN PPLG 🚀</title>
+    <!-- Library Kamera -->
+    <script src="https://rawgit.com"></script>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f2fe;
+            --neon-pink: #f43f5e;
+            --dark-bg: #030712;
+            --glass: rgba(255, 255, 255, 0.05);
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            background-image: radial-gradient(circle at 50% -20%, #1e293b, #030712);
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); margin: 0; font-size: 1.8rem; }
+        .subtitle { font-size: 0.75rem; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover { transform: scale(1.02); box-shadow: 0 0 25px var(--neon-blue); }
+
+        /* AREA KAMERA SELALU AKTIF */
+        #preview {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            margin: 10px 0;
+        }
+
+        .history-box {
+            text-align: left;
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 15px;
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .status-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: bold; float: right; }
+        .late { background: var(--neon-pink); }
+        .on-time { background: var(--success); }
+        .permission { background: var(--warning); color: black; }
+        .alpa { background: #64748b; }
+
+        .admin-btn {
+            position: fixed; bottom: 20px; right: 20px; background: rgba(0, 242, 254, 0.1);
+            width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; cursor: pointer; border: 1px solid var(--neon-blue); z-index: 1000;
+        }
+
+        .hidden { display: none !important; }
+        
+        .admin-card {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--neon-blue);
+            text-align: left;
+        }
+
+        .flex-row { display: flex; gap: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 1. LOGIN SECTION -->
+        <div id="loginSection">
+            <h1>MADYA DEPOK🏫</h1>
+            <div class="subtitle">PPLG ABSEN SYSTEM</div>
+            <input type="text" id="username" placeholder="Username Siswa">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="handleLogin()">LOGIN ✨</button>
+        </div>
+
+        <!-- 2. STUDENT DASHBOARD -->
+        <div id="studentSection" class="hidden">
+            <h2 id="welcomeMsg" style="color: var(--neon-blue); margin:0;">Halo! 👋</h2>
+            <div id="realtimeClock" style="font-size: 1.8rem; font-weight: 700;">00:00:00</div>
+            
+            <select id="absensiType" onchange="restartCamera()">
+                <option value="MASUK">🌅 ABSEN MASUK</option>
+                <option value="PULANG">🌇 ABSEN PULANG</option>
+            </select>
+
+            <video id="preview"></video>
+            <div id="statusCam" style="font-size: 0.7rem; color: var(--neon-blue);">Scanner Active 📡</div>
+
+            <div class="history-box">
+                <strong style="color: var(--neon-blue); font-size: 0.8rem;">RIWAYAT ABSENSI 📊</strong>
+                <div id="userLogs" style="margin-top:10px;"></div>
+            </div>
+            
+            <button onclick="logout()" style="background: #334155; color: white;">LOGOUT 🚪</button>
+        </div>
+
+        <!-- 3. ADMIN PANEL -->
+        <div id="adminSection" class="hidden">
+            <h2 style="color: var(--neon-pink); margin:0;">ADMIN PANEL ⚙️</h2>
+            
+            <div class="admin-card">
+                <strong style="font-size: 0.8rem;">MANAJEMEN SISWA</strong>
+                <input type="text" id="newStudentUser" placeholder="Username" style="margin-top:8px;">
+                <input type="password" id="newStudentPass" placeholder="Password" style="margin-top:8px;">
+                <button onclick="addStudent()" style="margin-top:10px;">SIMPAN AKUN 👤</button>
+            </div>
+
+            <div class="admin-card">
+                <strong style="font-size: 0.8rem;">SET STATUS IZIN/ALPA</strong>
+                <select id="targetStudent" style="margin-top:8px;"></select>
+                <div class="flex-row">
+                    <button onclick="setManualStatus('IZIN')" style="background: var(--warning); color: black;">IZIN 📝</button>
+                    <button onclick="setManualStatus('ALPA')" style="background: #64748b; color: white;">ALPA ❌</button>
+                </div>
+            </div>
+
+            <button onclick="resetData()" style="background: var(--neon-pink); color: white;">RESET SEMUA DATA ⚠️</button>
+            <button onclick="backFromAdmin()" style="margin-top:10px; background: #334155; color: white;">KEMBALI</button>
+        </div>
+    </div>
+
+    <div class="admin-btn" onclick="checkAdmin()">⚙️</div>
+
+    <script>
+        let scanner = null;
+        let loggedInUser = "";
+
+        // DATABASE PERMANEN (LocalStorage)
+        const loadDB = () => JSON.parse(localStorage.getItem('userDB')) || { "admin": "admin123" };
+        const saveDB = (db) => localStorage.setItem('userDB', JSON.stringify(db));
+        const loadLogs = () => JSON.parse(localStorage.getItem('absen_logs')) || [];
+        const saveLogs = (logs) => localStorage.setItem('absen_logs', JSON.stringify(logs));
+
+        // Jam Real-time
+        setInterval(() => {
+            const el = document.getElementById('realtimeClock');
+            if(el) el.innerText = new Date().toLocaleTimeString('id-ID');
+        }, 1000);
+
+        function handleLogin() {
+            const u = document.getElementById('username').value.toLowerCase().trim();
+            const p = document.getElementById('password').value.trim();
+            const db = loadDB();
+
+            if (db[u] && db[u] === p) {
+                loggedInUser = u;
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('studentSection').classList.remove('hidden');
+                document.getElementById('welcomeMsg').innerText = `Halo, ${u.toUpperCase()}! 👋`;
+                renderUserLogs();
+                startCamera();
+            } else {
+                alert("Username/Password tidak ditemukan!");
+            }
+        }
+
+        // FUNGSI KAMERA SELALU AKTIF
+        function startCamera() {}
+    // 1. Hentikan scanner jika sudah ada instance yang berjalan
+    if (scanner) {
+        scanner.stop();
+    }
+
+    // 2. Inisialisasi scanner
+    scanner = new Instascan.Scanner({
+        video: document.getElementById('preview'),
+        mirror: false
+    });
+
+    // 3. Pasang listener untuk hasil scan (Perbaikan Syntax di sini)
+    scanner.addListener('scan', (content) => {
+        console.log("Hasil Scan:", content); // Debugging
+        if (content === "MADYA-PPLG") {
+            submitAttendance();
+        } else {
+            alert("QR Code tidak valid!");
+        }
+    });
+
+    // 4. Akses Kamera
+    Instascan.Camera.getCameras().then(cameras => {
+        if (cameras.length > 0) {
+            /** * Logika memilih kamera belakang:
+             * Biasanya pada HP, kamera belakang berada di index terakhir.
+             * Namun, beberapa browser mengurutkannya berbeda.
+             */
+            const selectedCamera = cameras.length > 1 ? cameras[cameras.length - 1] : cameras[0];
+        }   
+    });
+            scanner.start(selectedCamera)
+                .then(() => {
+                    console.log("Scanner dimulai dengan kamera:", selectedCamera.name);
+                    document.getElementById('statusCam').innerText = "Scanner Active 📡";
+                })
+                .catch(err => {
+                    console.error("Gagal memulai scanner:", err);
+                    document.getElementById('statusCam').innerText = "Gagal mengakses kamera! 🚫";
+                });
+
+        function restartCamera() {
+            startCamera(); // Re-trigger kamera saat ganti tipe absen
+        }
+
+        function submitAttendance() {
+            const type = document.getElementById('absensiType').value;
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+            const tgl = now.toLocaleDateString('id-ID');
+            
+            let status = "TEPAT WAKTU ✅";
+            let sClass = "on-time";
+
+            if (type === "MASUK") {
+                const totalMin = now.getHours() * 60 + now.getMinutes();
+                if (totalMin > (7 * 60 + 10)) { // 07:10
+                    status = "TELAT ⏰";
+                    sClass = "late";
+                }
+            } else { status = "PULANG 👋"; }
+
+            processLog(loggedInUser, timeStr, type, status, sClass, tgl);
+        }
+
+        function setManualStatus(statusType) {
+            const student = document.getElementById('targetStudent').value;
+            const tgl = new Date().toLocaleDateString('id-ID');
+            const sClass = statusType === 'IZIN' ? 'permission' : 'alpa';
+            
+            processLog(student, "--:--", "MANUAL", statusType + " 📝", sClass, tgl);
+            alert(`Siswa ${student.toUpperCase()} diset ${statusType}`);
+        }
+
+        function processLog(nama, jam, tipe, status, sClass, tgl) {
+            let logs = loadLogs();
+            // Cek duplikasi di hari yang sama
+            if(logs.find(l => l.nama === nama && l.tgl === tgl && l.tipe === tipe)) {
+                alert("Data sudah tersimpan untuk hari ini!");
+                return;
+            }
+            logs.push({ nama, jam, tipe, status, sClass, tgl });
+            saveLogs(logs);
+            renderUserLogs();
+            if(loggedInUser) alert("Absen Berhasil Disimpan! ✅");
+        }
+
+        function renderUserLogs() {
+            const logs = loadLogs();
+            const container = document.getElementById('userLogs');
+            container.innerHTML = logs.filter(l => l.nama === loggedInUser).reverse().map(l => `
+                <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 8px 0; font-size: 0.7rem;">
+                    [${l.tgl}] <b>${l.tipe}</b> - ${l.jam} <span class="status-badge ${l.sClass}">${l.status}</span>
+                </div>
+            `).join('');
+        }
+
+        // --- ADMIN AREA ---
+        function checkAdmin() {
+            const pin = prompt("PIN Admin:");
+            if (pin === "PPLG2026") {
+                if(scanner) scanner.stop();
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('studentSection').classList.add('hidden');
+                document.getElementById('adminSection').classList.remove('hidden');
+                updateAdminStudentList();
+            }
+        }
+
+        function addStudent() {
+            const u = document.getElementById('newStudentUser').value.toLowerCase().trim();
+            const p = document.getElementById('newStudentPass').value.trim();
+            if(!u || !p) return;
+            let db = loadDB();
+            db[u] = p;
+            saveDB(db);
+            alert("Akun Siswa Tersimpan Permanen!");
+            updateAdminStudentList();
+        }
+
+        function updateAdminStudentList() {
+            const db = loadDB();
+            const select = document.getElementById('targetStudent');
+            select.innerHTML = Object.keys(db).map(u => `<option value="${u}">${u.toUpperCase()}</option>`).join('');
+        }
+
+        function resetData() {
+            if(confirm("PERINGATAN! Ini akan menghapus SEMUA akun & riwayat. Lanjut?")) {
+                localStorage.clear();
+                alert("Data bersih! Halaman akan dimuat ulang.");
+                location.reload();
+            }
+        }
+
+        function logout() { location.reload(); }
+        function backFromAdmin() { location.reload(); }
+    </script>
+</body>
+</html>
+
