@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lumina Ultra 8K - Pro Max</title>
+    <style>
+        :root { --ios-gold: #f5e1a4; --deep-black: #050505; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "SF Pro Display", -apple-system, sans-serif; }
+        
+        body { background: var(--deep-black); color: white; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* Status & Dynamic Island */
+        .top-ui { height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+        .dynamic-island { width: 130px; height: 38px; background: #000; border-radius: 22px; border: 0.5px solid #222; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; letter-spacing: 1px; color: #fff; }
+
+        /* Viewfinder Crystal Clear */
+        .viewport {
+            position: relative; flex: 1; margin: 0 8px; border-radius: 50px; overflow: hidden;
+            background: #000; border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        video { 
+            width: 100%; height: 100%; object-fit: cover; 
+            /* ISP iPhone 15 Pro Emulation */
+            filter: contrast(1.1) saturate(1.2) brightness(1.05) sepia(0.02);
+            image-rendering: -webkit-optimize-contrast;
+            transform: scale(1.001); /* Anti-aliasing hack */
+        }
+
+        /* Live & Resolution Badge */
+        .badges { position: absolute; top: 25px; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; z-index: 5; }
+        .badge { background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); padding: 6px 12px; border-radius: 18px; font-size: 10px; font-weight: 900; border: 0.5px solid rgba(255,255,255,0.2); }
+        .live-active { color: var(--ios-gold); border-color: var(--ios-gold); animation: live-pulse 1s infinite; }
+
+        /* Lens System Ultra Smooth */
+        .lens-nav {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 10px; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 40px; backdrop-filter: blur(20px);
+        }
+        .lens { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; background: #1a1a1a; transition: 0.3s cubic-bezier(0.2, 1, 0.2, 1); }
+        .lens.active { background: white; color: black; transform: scale(1.15); }
+
+        /* Pro Controls */
+        .bottom-panel { height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; }
+        .shutter-container { width: 100%; display: flex; justify-content: space-around; align-items: center; padding: 0 40px; }
+        
+        .shutter-outer {
+            width: 86px; height: 86px; border-radius: 50%; border: 4px solid #fff;
+            display: flex; justify-content: center; align-items: center; padding: 4px;
+        }
+        .shutter-inner { width: 100%; height: 100%; background: #fff; border-radius: 50%; transition: transform 0.1s; }
+        .shutter-outer:active .shutter-inner { transform: scale(0.9); }
+
+        .thumb { width: 55px; height: 55px; border-radius: 14px; background: #1a1a1a; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .icon-btn { width: 55px; height: 55px; background: #1c1c1e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+        @keyframes live-pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 100; }
+    </style>
+</head>
+<body>
+
+    <div class="top-ui"><div class="dynamic-island">LUMINA PRO RAW</div></div>
+
+    <div class="viewport">
+        <div id="flash"></div>
+        <div class="badges">
+            <div class="badge" id="liveLabel">LIVE</div>
+            <div class="badge" style="color:var(--ios-gold)">4K • 60 FPS</div>
+        </div>
+        
+        <video id="v" autoplay playsinline></video>
+
+        <div class="lens-nav">
+            <div class="lens" onclick="zoom(0.5, this)">.5</div>
+            <div class="lens active" onclick="zoom(1, this)">1x</div>
+            <div class="lens" onclick="zoom(2, this)">2</div>
+            <div class="lens" onclick="zoom(5, this)">5</div>
+        </div>
+    </div>
+
+    <div class="bottom-panel">
+        <div style="font-size: 12px; font-weight: 700; color: #666; letter-spacing: 1.5px;">
+            CINEMATIC &nbsp; VIDEO &nbsp; <span style="color:white">PHOTO</span> &nbsp; PORTRAIT
+        </div>
+
+        <div class="shutter-container">
+            <div class="thumb"><img id="preview" src=""></div>
+            <div class="shutter-outer" id="captureBtn"><div class="shutter-inner"></div></div>
+            <div class="icon-btn" id="flip">🔄</div>
+        </div>
+    </div>
+
+    <canvas id="canvas4k" style="display:none;"></canvas>
+
+    <script>
+        const v = document.getElementById('v');
+        const c = document.getElementById('canvas4k');
+        const shutter = document.getElementById('captureBtn');
+        const preview = document.getElementById('preview');
+        const liveLabel = document.getElementById('liveLabel');
+        
+        let isFront = false;
+        let recorder;
+        let stream;
+
+        async function initUltraCamera() {
+            // MINTA RESOLUSI MAKSIMAL (4K / 8K TERGANTUNG HARDWARE)
+            const constraints = {
+                video: {
+                    facingMode: isFront ? "user" : "environment",
+                    width: { ideal: 7680, min: 3840 }, // Meminta hingga 8K, minimal 4K
+                    height: { ideal: 4320, min: 2160 },
+                    frameRate: { ideal: 60 }
+                }
+            };
+
+            try {
+                if (stream) stream.getTracks().forEach(t => t.stop());
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                v.srcObject = stream;
+            } catch (err) {
+                console.error("Mencoba fallback ke FHD...");
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                v.srcObject = stream;
+            }
+        }
+
+        shutter.onclick = async () => {
+            // Flash & Live Effect
+            document.getElementById('flash').style.opacity = '1';
+            liveLabel.classList.add('live-active');
+            setTimeout(() => document.getElementById('flash').style.opacity = '0', 100);
+
+            // 1. Capture FOTO Resolusi Maksimal
+            const ctx = c.getContext('2d', { alpha: false, desynchronized: true });
+            c.width = v.videoWidth;
+            c.height = v.videoHeight;
+            
+            if (isFront) { ctx.translate(c.width, 0); ctx.scale(-1, 1); }
+
+            // AI Sharpening Simulation
+            ctx.filter = "contrast(1.15) saturate(1.2) brightness(1.05)";
+            ctx.drawImage(v, 0, 0);
+
+            const highResImg = c.toDataURL("image/jpeg", 1.0);
+            preview.src = highResImg;
+            download(highResImg, `LUMINA_4K_${Date.now()}.jpg`);
+
+            // 2. Capture LIVE PHOTO (Video Clip 6 Detik)
+            const mediaRecorder = new MediaRecorder(stream, { 
+                mimeType: 'video/webm;codecs=vp9',
+                videoBitsPerSecond: 50000000 // 50Mbps untuk kualitas ultra
+            });
+            const chunks = [];
+            mediaRecorder.ondataavailable = e => chunks.push(e.data);
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/mp4' });
+                download(URL.createObjectURL(blob), `LIVE_MOTION_${Date.now()}.mp4`);
+                liveLabel.classList.remove('live-active');
+            };
+            
+            mediaRecorder.start();
+            setTimeout(() => mediaRecorder.stop(), 6000);
+        };
+
+        function zoom(amt, btn) {
+            v.style.transform = `scale(${amt})`;
+            document.querySelectorAll('.lens').forEach(l => l.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function download(url, name) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            a.click();
+        }
+
+        document.getElementById('flip').onclick = () => { isFront = !isFront; initUltraCamera(); };
+
+        initUltraCamera();
+    </script>
+</body>
+</html>
