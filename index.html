@@ -1,292 +1,475 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADYA DEPOK - ABSEN PPLG 🚀</title>
-    <!-- Library Kamera & UI -->
-    <script src="https://rawgit.com"></script>
-    <link href="https://googleapis.com" rel="stylesheet">
-    <script src="https://jsdelivr.net"></script>
-    <style>
-        :root {
-            --neon-blue: #00f2fe;
-            --neon-pink: #f43f5e;
-            --dark-bg: #030712;
-            --glass: rgba(255, 255, 255, 0.05);
-            --success: #10b981;
-            --warning: #f59e0b;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { box-sizing: border-box; }
+<title>NGODINGKU By Rivaldo Juliandira</title>
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--dark-bg);
-            background-image: radial-gradient(circle at 50% -20%, #1e293b, #030712);
-            color: white; margin: 0; display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; padding: 20px;
-        }
+<style>
 
-        .container {
-            width: 100%; max-width: 450px; background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 30px;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.2); text-align: center;
-            display: flex; flex-direction: column; gap: 15px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); margin: 0; font-size: 1.8rem; }
-        .subtitle { font-size: 0.75rem; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+html{
+    scroll-behavior:smooth;
+}
 
-        input, select {
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.6); color: white; outline: none; text-align: center;
-        }
+body{
+    background:#0f172a;
+    color:white;
+}
 
-        button {
-            width: 100%; padding: 14px; border: none; border-radius: 12px;
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-            color: #000; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase;
-        }
+/* NAVBAR */
 
-        button:hover { transform: scale(1.02); box-shadow: 0 0 25px var(--neon-blue); }
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:#111827;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
 
-        #preview {
-            width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px;
-            border: 2px solid var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); margin: 10px 0; background: #000;
-        }
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#38bdf8;
+}
 
-        .history-box {
-            text-align: left; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px;
-            max-height: 180px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1);
-        }
+nav ul{
+    display:flex;
+    gap:20px;
+    list-style:none;
+}
 
-        .log-entry { font-size: 0.7rem; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; }
-        .status-badge { padding: 2px 6px; border-radius: 4px; font-size: 0.55rem; font-weight: bold; float: right; }
-        .late { background: var(--neon-pink); }
-        .on-time { background: var(--success); }
-        .permission { background: var(--warning); color: black; }
-        .alpa { background: #64748b; }
+nav a{
+    color:white;
+    text-decoration:none;
+}
 
-        .admin-btn {
-            position: fixed; bottom: 20px; right: 20px; background: rgba(0, 242, 254, 0.1);
-            width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; cursor: pointer; border: 1px solid var(--neon-blue); z-index: 1000;
-        }
+/* HERO */
 
-        .hidden { display: none !important; }
-        .admin-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 4px solid var(--neon-blue); text-align: left; }
-        .flex-row { display: flex; gap: 10px; margin-top: 10px; }
-    </style>
+.hero{
+    min-height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+}
+
+.hero-content{
+    max-width:800px;
+}
+
+.hero h1{
+    font-size:clamp(2rem,5vw,4rem);
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:#38bdf8;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+}
+
+/* SECTION */
+
+section{
+    padding:80px 20px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+/* SERVICES */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+}
+
+.card h3{
+    margin-bottom:15px;
+}
+
+/* PRICING */
+
+.pricing-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    max-width:1300px;
+    margin:auto;
+}
+
+.price-card{
+    background:#1e293b;
+    padding:30px;
+    border-radius:20px;
+}
+
+.price-card h3{
+    margin-bottom:15px;
+}
+
+.price{
+    font-size:32px;
+    color:#38bdf8;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.price-card ul{
+    list-style:none;
+}
+
+.price-card li{
+    padding:8px 0;
+}
+
+.price-card button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#38bdf8;
+    color:white;
+    cursor:pointer;
+}
+
+/* TESTIMONI */
+
+.testimonial-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.testimonial{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#111827;
+}
+
+/* FLOATING WA */
+
+.floating-chat{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+
+    background:#25D366;
+    color:white;
+
+    padding:15px 20px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    z-index:9999;
+}
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+}
+footer p{
+    color:#64748b;
+    font-size:14px;
+}
+.copyright{
+    color:#94a3b8;
+    font-size:14px;
+    margin-top:15px;
+}
+footer p{
+    color:white;
+}
+
+.copyright{
+    color:#94a3b8;
+}
+
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- 1. LOGIN SECTION -->
-        <div id="loginSection">
-            <h1>MADYA DEPOK🏫</h1>
-            <div class="subtitle">PPLG ABSEN SYSTEM</div>
-            <input type="text" id="username" placeholder="Username Siswa">
-            <input type="password" id="password" placeholder="Password">
-            <button onclick="handleLogin()">LOGIN ✨</button>
-            <p style="font-size: 0.6rem; color: #475569; margin-top: 10px;">Admin Default: admin / admin123</p>
-        </div>
+<nav>
 
-        <!-- 2. STUDENT DASHBOARD -->
-        <div id="studentSection" class="hidden">
-            <h2 id="welcomeMsg" style="color: var(--neon-blue); margin:0;">Halo! 👋</h2>
-            <div id="realtimeClock" style="font-size: 1.8rem; font-weight: 700;">00:00:00</div>
-            
-            <select id="absensiType">
-                <option value="MASUK">🌅 ABSEN MASUK</option>
-                <option value="PULANG">🌇 ABSEN PULANG</option>
-            </select>
-
-            <video id="preview"></video>
-            <div id="statusCam" style="font-size: 0.7rem; color: var(--neon-blue);">Scanner Active 📡</div>
-
-            <div class="history-box">
-                <strong style="color: var(--neon-blue); font-size: 0.8rem;">RIWAYAT ABSENSI 📊</strong>
-                <div id="userLogs" style="margin-top:10px;"></div>
-            </div>
-            
-            <button onclick="logout()" style="background: #334155; color: white; margin-top: 10px;">LOGOUT 🚪</button>
-        </div>
-
-        <!-- 3. ADMIN PANEL -->
-        <div id="adminSection" class="hidden">
-            <h2 style="color: var(--neon-pink); margin:0;">ADMIN PANEL ⚙️</h2>
-            
-            <div class="admin-card">
-                <strong style="font-size: 0.7rem;">TAMBAH SISWA BARU</strong>
-                <input type="text" id="newStudentUser" placeholder="Username Siswa" style="margin-top:8px;">
-                <input type="password" id="newStudentPass" placeholder="Password" style="margin-top:8px;">
-                <button onclick="addStudent()" style="margin-top:10px; font-size: 0.7rem;">SIMPAN AKUN 👤</button>
-            </div>
-
-            <div class="admin-card">
-                <strong style="font-size: 0.7rem;">SET STATUS MANUAL</strong>
-                <select id="targetStudent" style="margin-top:8px; font-size: 0.7rem;"></select>
-                <div class="flex-row">
-                    <button onclick="setManualStatus('IZIN')" style="background: var(--warning); color: black; font-size: 0.6rem;">IZIN 📝</button>
-                    <button onclick="setManualStatus('ALPA')" style="background: #64748b; color: white; font-size: 0.6rem;">ALPA ❌</button>
-                </div>
-            </div>
-
-            <button onclick="resetData()" style="background: var(--neon-pink); color: white; font-size: 0.7rem;">HAPUS SEMUA DATA ⚠️</button>
-            <button onclick="backFromAdmin()" style="margin-top:10px; background: #334155; color: white; font-size: 0.7rem;">KEMBALI</button>
-        </div>
+    <div class="logo">
+        NGODINGKU
     </div>
 
-    <div class="admin-btn" onclick="goToAdmin()">⚙️</div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#harga">Harga</a></li>
+        <li><a href="#testimoni">Testimoni</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+    </ul>
 
-    <script>
-        let scanner = null;
-        let loggedInUser = "";
+</nav>
 
-        // DATABASE MANAGEMENT
-        const loadDB = () => JSON.parse(localStorage.getItem('userDB')) || { "admin": "admin123" };
-        const saveDB = (db) => localStorage.setItem('userDB', JSON.stringify(db));
-        const loadLogs = () => JSON.parse(localStorage.getItem('absen_logs')) || [];
-        const saveLogs = (logs) => localStorage.setItem('absen_logs', JSON.stringify(logs));
+<section class="hero" id="home">
 
-        // Jam Real-time
-        setInterval(() => {
-            const el = document.getElementById('realtimeClock');
-            if(el) el.innerText = new Date().toLocaleTimeString('id-ID');
-        }, 1000);
+    <div class="hero-content">
 
-        function handleLogin() {
-            const u = document.getElementById('username').value.toLowerCase().trim();
-            const p = document.getElementById('password').value.trim();
-            const db = loadDB();
+        <h1>
+            Jasa Ngoding HTML, Python & Website Sederhana
+        </h1>
 
-            if (db[u] && db[u] === p) {
-                loggedInUser = u;
-                document.getElementById('loginSection').classList.add('hidden');
-                document.getElementById('studentSection').classList.remove('hidden');
-                document.getElementById('welcomeMsg').innerText = `Halo, ${u.toUpperCase()}! 👋`;
-                startScanner();
-                renderLogs();
-            } else {
-                Swal.fire('Error', 'Username atau Password salah!', 'error');
-            }
-        }
+        <p>
+            Membantu pembuatan website, tugas coding,
+            landing page, portofolio, Python script,
+            dan project sederhana dengan harga terjangkau.
+        </p>
 
-        function startScanner() {
-            scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: true });
-            scanner.addListener('scan', function(content) {
-                processAbsen(content);
-            });
-            Instascan.Camera.getCameras().then(cameras => {
-                if (cameras.length > 0) scanner.start(cameras[0]);
-                else alert('Kamera tidak ditemukan');
-            }).catch(e => console.error(e));
-        }
+        <a href="#harga" class="btn">
+            Lihat Harga
+        </a>
 
-        function processAbsen(qrContent) {
-            const type = document.getElementById('absensiType').value;
-            const now = new Date();
-            const time = now.toLocaleTimeString('id-ID');
-            
-            let status = "TEPAT WAKTU";
-            let statusClass = "on-time";
+    </div>
 
-            if(type === "MASUK" && (now.getHours() > 7 || (now.getHours() === 7 && now.getMinutes() > 15))) {
-                status = "TERLAMBAT";
-                statusClass = "late";
-            }
+</section>
 
-            const logs = loadLogs();
-            logs.unshift({ user: loggedInUser, type, time, status, statusClass, date: now.toLocaleDateString('id-ID') });
-            saveLogs(logs);
+<section id="layanan">
 
-            Swal.fire({ title: 'Berhasil!', text: `${type}: ${status}`, icon: status === 'TERLAMBAT' ? 'warning' : 'success', timer: 1500 });
-            renderLogs();
-        }
+    <h2 class="section-title">
+        Layanan Kami
+    </h2>
 
-        function renderLogs() {
-            const logs = loadLogs();
-            const container = document.getElementById('userLogs');
-            container.innerHTML = logs.filter(l => l.user === loggedInUser).map(l => `
-                <div class="log-entry">
-                    <b>${l.type}</b> | ${l.time}
-                    <span class="status-badge ${l.statusClass}">${l.status}</span>
-                    <br><small>${l.date}</small>
-                </div>
-            `).join('');
-        }
+    <div class="cards">
 
-        // ADMIN FEATURES
-        function goToAdmin() {
-            if(loggedInUser !== "admin") return Swal.fire('Ditolak', 'Hanya Admin yang bisa masuk!', 'error');
-            document.getElementById('studentSection').classList.add('hidden');
-            document.getElementById('adminSection').classList.remove('hidden');
-            updateAdminLists();
-        }
+        <div class="card">
+            <h3>🌐 HTML & CSS</h3>
+            <p>Pembuatan website sederhana.</p>
+        </div>
 
-        function addStudent() {
-            const u = document.getElementById('newStudentUser').value.toLowerCase().trim();
-            const p = document.getElementById('newStudentPass').value.trim();
-            if(!u || !p) return Swal.fire('Info', 'Isi semua data!', 'info');
-            
-            const db = loadDB();
-            db[u] = p;
-            saveDB(db);
-            Swal.fire('Sukses', 'Siswa berhasil didaftarkan!', 'success');
-            updateAdminLists();
-        }
+        <div class="card">
+            <h3>🐍 Python</h3>
+            <p>Script dan program Python.</p>
+        </div>
 
-        function updateAdminLists() {
-            const db = loadDB();
-            const select = document.getElementById('targetStudent');
-            select.innerHTML = Object.keys(db).filter(user => user !== 'admin').map(user => `
-                <option value="${user}">${user.toUpperCase()}</option>
-            `).join('');
-        }
+        <div class="card">
+            <h3>⚡ Landing Page</h3>
+            <p>Website promosi modern.</p>
+        </div>
 
-        function setManualStatus(status) {
-            const user = document.getElementById('targetStudent').value;
-            if(!user) return Swal.fire('Error', 'Pilih siswa dulu!', 'error');
-            
-            const logs = loadLogs();
-            logs.unshift({ 
-                user: user, 
-                type: 'MANUAL', 
-                time: new Date().toLocaleTimeString('id-ID'), 
-                status: status, 
-                statusClass: status === 'IZIN' ? 'permission' : 'alpa', 
-                date: new Date().toLocaleDateString('id-ID') 
-            });
-            saveLogs(logs);
-            Swal.fire('Update', `Status ${user} diset ke ${status}`, 'success');
-        }
+        <div class="card">
+            <h3>🛠 Bug Fix</h3>
+            <p>Perbaikan error coding.</p>
+        </div>
 
-        function backFromAdmin() {
-            document.getElementById('adminSection').classList.add('hidden');
-            document.getElementById('studentSection').classList.remove('hidden');
-        }
+    </div>
 
-        function resetData() {
-            Swal.fire({
-                title: 'Hapus Semua?',
-                text: "Data siswa dan log akan hilang!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.clear();
-                    location.reload();
-                }
-            });
-        }
+</section>
 
-        function logout() {
-            if(scanner) scanner.stop();
-            location.reload();
-        }
-    </script>
+<section id="harga">
+
+    <h2 class="section-title">
+        Daftar Harga
+    </h2>
+
+    <div class="pricing-container">
+
+        <div class="price-card">
+            <h3>HTML Sederhana</h3>
+            <div class="price">Rp5.000</div>
+
+            <button
+                class="pilih-paket"
+                data-paket="HTML Sederhana"
+                data-harga="5000">
+                Pilih Paket
+            </button>
+        </div>
+
+        <div class="price-card">
+            <h3>Landing Page</h3>
+            <div class="price">Rp20.000</div>
+
+            <button
+                class="pilih-paket"
+                data-paket="Landing Page"
+                data-harga="20000">
+                Pilih Paket
+            </button>
+        </div>
+
+        <div class="price-card">
+            <h3>Python Sederhana</h3>
+            <div class="price">Rp10.000</div>
+
+            <button
+                class="pilih-paket"
+                data-paket="Python Sederhana"
+                data-harga="10000">
+                Pilih Paket
+            </button>
+        </div>
+
+        <div class="price-card">
+            <h3>Website Sederhana</h3>
+            <div class="price">Rp25.000</div>
+
+            <button
+                class="pilih-paket"
+                data-paket="Website Sederhana"
+                data-harga="25000">
+                Pilih Paket
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+const nomorWA = "6285860612529";
+
+document.querySelectorAll(".pilih-paket").forEach(button => {
+
+    button.addEventListener("click", function(){
+
+        const paket = this.dataset.paket;
+        const harga = this.dataset.harga;
+
+        const pesan =
+`Halo Admin 👋
+
+Saya ingin memesan jasa berikut:
+
+📦 Paket: ${paket}
+💰 Harga: Rp ${Number(harga).toLocaleString("id-ID")}
+
+Mohon informasi lebih lanjut. Terima kasih.`;
+
+        window.open(
+            `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`,
+            "_blank"
+        );
+
+    });
+
+});
+
+</script>
+
+    </div>
+
+</section>
+
+<section id="testimoni">
+
+    <h2 class="section-title">
+        Testimoni
+    </h2>
+
+    <div class="testimonial-container">
+
+        <div class="testimonial">
+            ⭐⭐⭐⭐⭐
+            <br><br>
+            Website selesai cepat dan rapi.
+        </div>
+
+        <div class="testimonial">
+            ⭐⭐⭐⭐⭐
+            <br><br>
+            HTML responsive dan mudah diedit.
+        </div>
+
+        <div class="testimonial">
+            ⭐⭐⭐⭐⭐
+            <br><br>
+            Script Python berjalan tanpa error.
+        </div>
+
+    </div>
+
+</section>
+
+<footer id="kontak">
+
+    <h3>Hubungi Kami</h3>
+    <br>
+
+    <footer id="kontak">
+
+    <h3>Hubungi Kami</h3>
+
+    <p>
+        WhatsApp: 085860612529
+    </p>
+
+    <p>
+        Instagram: @dodooreall
+    </p>
+
+    <p class="copyright">
+        © 2026 NGODINGKU By Rivaldo Juliandira. All Rights Reserved.
+    </p>
+
+</footer>
+
+<a
+href="https://wa.me/6285860612529?text=Halo%20Admin,%20saya%20ingin%20menggunakan%20jasa%20ngoding%20Anda"
+target="_blank"
+class="floating-chat">
+
+💬 Chat Admin
+
+</a>
+
 </body>
 </html>
-
