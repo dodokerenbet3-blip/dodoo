@@ -168,20 +168,163 @@ section{
 
 /* TESTIMONI */
 
-.testimonial-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-    max-width:1200px;
-    margin:auto;
+#testi{
+
+    max-width:700px;
+
+    margin:40px auto;
+
+    padding:35px;
+
+    background:linear-gradient(
+        135deg,
+        #1e293b,
+        #0f172a
+    );
+
+    border:1px solid rgba(56,189,248,.2);
+
+    border-radius:25px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    color:white;
+
+    line-height:1.8;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.3);
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+
+    animation:
+        glow 3s infinite alternate;
+
+    position:relative;
+
+    overflow:hidden;
 }
 
-.testimonial{
-    background:#1e293b;
-    padding:25px;
-    border-radius:15px;
+/* Efek cahaya */
+
+#testi::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-100%;
+
+    left:-100%;
+
+    width:250%;
+
+    height:250%;
+
+    background:
+    linear-gradient(
+        45deg,
+        transparent,
+        rgba(56,189,248,.08),
+        transparent
+    );
+
+    transform:rotate(25deg);
+
+    animation:shine 6s linear infinite;
 }
 
+/* Nama pelanggan */
+
+.nama-client{
+
+    display:block;
+
+    margin-top:15px;
+
+    color:#38bdf8;
+
+    font-weight:bold;
+
+    font-size:16px;
+}
+
+/* Bintang */
+
+.rating{
+
+    font-size:28px;
+
+    margin-bottom:15px;
+}
+
+/* Animasi glow */
+
+@keyframes glow{
+
+    from{
+
+        box-shadow:
+        0 0 15px rgba(56,189,248,.15);
+
+    }
+
+    to{
+
+        box-shadow:
+        0 0 30px rgba(56,189,248,.35);
+
+    }
+
+}
+
+/* Animasi kilauan */
+
+@keyframes shine{
+
+    0%{
+
+        transform:
+        translateX(-100%)
+        rotate(25deg);
+
+    }
+
+    100%{
+
+        transform:
+        translateX(100%)
+        rotate(25deg);
+
+    }
+
+}
+
+/* HP */
+
+@media(max-width:768px){
+
+    #testi{
+
+        margin:20px;
+
+        padding:25px;
+
+        font-size:16px;
+
+    }
+
+    .rating{
+
+        font-size:24px;
+
+    }
+
+}
 /* FOOTER */
 
 footer{
@@ -238,25 +381,388 @@ footer p{
 .copyright{
     color:#94a3b8;
 }
+/* HALAMAN WEBSITE */
+
+#website{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    background:#0f172a;
+}
+
+#website h1{
+    font-size:clamp(2.5rem,6vw,5rem);
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+#website p{
+    max-width:700px;
+    color:#cbd5e1;
+    line-height:1.8;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+#website button{
+    padding:15px 30px;
+    border:none;
+    border-radius:12px;
+    background:#38bdf8;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#website button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(56,189,248,.4);
+}
+
+/* HALAMAN PENJELASAN */
+
+#penjelasan{
+    min-height:100vh;
+    background:#0f172a;
+    padding:80px 20px;
+}
+
+#penjelasan h1{
+    text-align:center;
+    color:#38bdf8;
+    margin-bottom:30px;
+    font-size:clamp(2rem,5vw,4rem);
+}
+
+#penjelasan p{
+    max-width:900px;
+    margin:auto;
+    color:#cbd5e1;
+    line-height:2;
+    font-size:18px;
+    background:#1e293b;
+    padding:30px;
+    border-radius:20px;
+}
+
+#penjelasan button{
+    display:block;
+    margin:40px auto;
+    padding:15px 30px;
+    border:none;
+    border-radius:12px;
+    background:#38bdf8;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#penjelasan button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(56,189,248,.4);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    #website h1{
+        font-size:2.2rem;
+    }
+
+    #website p,
+    #penjelasan p{
+        font-size:16px;
+    }
+
+}
+/* HALAMAN PENJELASAN */
+
+#penjelasan{
+
+    min-height:100vh;
+
+    padding:80px 20px;
+
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #111827,
+        #1e293b
+    );
+
+    animation:fadeIn .5s ease;
+}
+
+#penjelasan h1{
+
+    text-align:center;
+
+    color:#38bdf8;
+
+    font-size:clamp(2rem,5vw,4rem);
+
+    margin-bottom:30px;
+
+    text-shadow:
+    0 0 15px rgba(56,189,248,.3);
+}
+
+#penjelasan p{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    background:#1e293b;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    color:#cbd5e1;
+
+    line-height:2;
+
+    font-size:17px;
+
+    border:1px solid rgba(56,189,248,.2);
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.3);
+}
+
+#penjelasan button{
+
+    display:block;
+
+    margin:40px auto;
+
+    padding:16px 35px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#38bdf8;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+#penjelasan button:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 10px 25px rgba(56,189,248,.4);
+}
+
+/* SCROLL BAR */
+
+#penjelasan::-webkit-scrollbar{
+    width:8px;
+}
+
+#penjelasan::-webkit-scrollbar-thumb{
+    background:#38bdf8;
+    border-radius:20px;
+}
+
+/* ANIMASI */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    #penjelasan{
+
+        padding:60px 15px;
+    }
+
+    #penjelasan p{
+
+        padding:25px;
+
+        font-size:15px;
+
+        line-height:1.9;
+    }
+
+    #penjelasan button{
+
+        width:100%;
+    }
+
+}
+.hero{
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        rgba(15,23,42,.85),
+        rgba(15,23,42,.90)
+    ),
+    url("https://i.ibb.co/2TjymTZ/Chat-GPT-Image-Jun-15-2026-07-57-22-PM.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    padding:40px 20px;
+}
+.pilih-paket{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#38bdf8;
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    box-shadow:
+        0 0 15px rgba(56,189,248,.3);
+
+}
+
+/* Efek kilauan */
+
+.pilih-paket::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-50%;
+
+    left:-150%;
+
+    width:60px;
+
+    height:250%;
+
+    background:rgba(255,255,255,.4);
+
+    transform:rotate(25deg);
+
+    animation:shine 3s linear infinite;
+}
+
+@keyframes shine{
+
+    0%{
+        left:-150%;
+    }
+
+    100%{
+        left:200%;
+    }
+
+}
+
+.pilih-paket:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 0 15px #38bdf8,
+        0 0 30px #38bdf8,
+        0 0 50px rgba(56,189,248,.5);
+}
+.pilih-paket{
+
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+
+    from{
+
+        box-shadow:
+        0 0 10px rgba(56,189,248,.3);
+
+    }
+
+    to{
+
+        box-shadow:
+        0 0 25px rgba(56,189,248,.8);
+
+    }
+
+}
 
 </style>
 </head>
 <body>
+    </style>
+</head>
+<body>
 
-<nav>
-
-    <div class="logo">
-        NGODINGKU
-    </div>
+<nav id="navbar">
+    <div class="logo">NGODINGKU</div>
 
     <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#layanan">Layanan</a></li>
         <li><a href="#harga">Harga</a></li>
         <li><a href="#testimoni">Testimoni</a></li>
+        <li><a href="#lihatPenjelasan">Penjelasan</a></li>
         <li><a href="#kontak">Kontak</a></li>
-    </ul>
 
+    </ul>
 </nav>
 
 <section class="hero" id="home">
@@ -405,43 +911,437 @@ Mohon informasi lebih lanjut. Terima kasih.`;
 
 </script>
 
-    </div>
-
-</section>
-
 <section id="testimoni">
 
     <h2 class="section-title">
-        Testimoni
+        Testimoni Pelanggan
     </h2>
 
-    <div class="testimonial-container">
+    <div id="testi">
 
-        <div class="testimonial">
+        <div class="rating">
             ⭐⭐⭐⭐⭐
-            <br><br>
-            Website selesai cepat dan rapi.
         </div>
 
-        <div class="testimonial">
-            ⭐⭐⭐⭐⭐
-            <br><br>
-            HTML responsive dan mudah diedit.
-        </div>
+        Website selesai cepat dan rapi.
 
-        <div class="testimonial">
-            ⭐⭐⭐⭐⭐
-            <br><br>
-            Script Python berjalan tanpa error.
-        </div>
+        <span class="nama-client">
+            — Andi, Jakarta
+        </span>
 
     </div>
 
 </section>
+<script>
+
+const data = [
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website selesai cepat dan rapi.
+<span class="nama-client">— Andi, Jakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Admin sangat membantu.
+<span class="nama-client">— Jaya, Griya</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+HTML responsive dan mudah diedit.
+<span class="nama-client">— Budi, Bandung</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Script Python berjalan tanpa error.
+<span class="nama-client">— Rizky, Surabaya</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Harga murah kualitas premium.
+<span class="nama-client">— Fajar, Bekasi</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Admin sangat fast respon.
+<span class="nama-client">— Dimas, Depok</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Codingan HTML bagus tanpa error.
+<span class="nama-client">— Aldo, Cigorowong</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Codingan rapih dan enak untuk presentasi.
+<span class="nama-client">— Aleh, Medan</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website selesai cepat dan rapi.
+<span class="nama-client">— Andi, Jakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Landing page sangat keren dan profesional.
+<span class="nama-client">— Budi, Bandung</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Script Python berjalan tanpa error dan mudah dipahami.
+<span class="nama-client">— Rizky, Surabaya</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Admin ramah dan pengerjaan sangat cepat.
+<span class="nama-client">— Fajar, Bekasi</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Harga terjangkau dengan hasil memuaskan.
+<span class="nama-client">— Dimas, Depok</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website saya jadi lebih modern dan responsive.
+<span class="nama-client">— Raka, Tangerang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Revisi dikerjakan dengan cepat tanpa biaya tambahan.
+<span class="nama-client">— Aldi, Bogor</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Sangat membantu menyelesaikan tugas coding saya.
+<span class="nama-client">— Nanda, Yogyakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Desain website bersih, elegan, dan nyaman dilihat.
+<span class="nama-client">— Kevin, Semarang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Komunikasi lancar dan hasil sesuai request.
+<span class="nama-client">— Reza, Medan</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Proses pengerjaan sangat cepat dan profesional.
+<span class="nama-client">— Farhan, Makassar</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website UMKM saya jadi terlihat lebih terpercaya.
+<span class="nama-client">— Ilham, Palembang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Codingan rapi dan mudah untuk dikembangkan lagi.
+<span class="nama-client">— Yoga, Malang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Sangat direkomendasikan untuk pemula yang butuh website.
+<span class="nama-client">— Arif, Cirebon</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Pelayanan cepat, ramah, dan hasilnya memuaskan.
+<span class="nama-client">— Deni, Pekanbaru</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Landing page bisnis saya jadi lebih menarik.
+<span class="nama-client">— Bayu, Lampung</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Script sesuai kebutuhan dan minim bug.
+<span class="nama-client">— Adit, Solo</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Terima kasih, project selesai sebelum deadline.
+<span class="nama-client">— Vino, Batam</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Pengerjaan cepat dengan kualitas premium.
+<span class="nama-client">— Putra, Samarinda</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Sudah beberapa kali order dan selalu puas.
+<span class="nama-client">— Hafiz, Balikpapan</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website selesai hanya dalam beberapa jam dan hasilnya jauh di atas ekspektasi saya. Tampilan modern, responsive, dan sangat profesional.
+<span class="nama-client">— Andi, Jakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Awalnya saya bingung membuat landing page untuk bisnis saya. Setelah menggunakan jasa NGODINGKU, hasilnya sangat memuaskan dan langsung siap dipakai.
+<span class="nama-client">— Budi, Bandung</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Script Python yang saya pesan berjalan tanpa error dan dokumentasinya juga jelas. Sangat membantu tugas kuliah saya.
+<span class="nama-client">— Rizky, Surabaya</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Admin fast respon bahkan tengah malam. Pengerjaan cepat dan revisi langsung dikerjakan tanpa ribet.
+<span class="nama-client">— Fajar, Bekasi</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Harga sangat terjangkau dibanding jasa lain, tapi kualitas hasilnya premium. Recommended!
+<span class="nama-client">— Dimas, Depok</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website portofolio saya jadi lebih menarik dan profesional. Sekarang lebih percaya diri saat melamar pekerjaan.
+<span class="nama-client">— Kevin, Semarang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Landing page yang dibuat berhasil meningkatkan jumlah calon pelanggan yang menghubungi bisnis saya.
+<span class="nama-client">— Reza, Medan</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Pengerjaan sangat detail dan sesuai request. Bahkan beberapa fitur tambahan diberikan secara gratis.
+<span class="nama-client">— Aldi, Bogor</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Codingan bersih, rapi, dan mudah dipahami. Cocok untuk belajar maupun dikembangkan lagi.
+<span class="nama-client">— Nanda, Yogyakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website UMKM saya sekarang terlihat jauh lebih profesional dan modern dibanding sebelumnya.
+<span class="nama-client">— Bayu, Lampung</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Saya memesan project HTML & CSS untuk tugas sekolah dan langsung mendapatkan nilai yang memuaskan.
+<span class="nama-client">— Yoga, Malang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Desain website sangat elegan, loading cepat, dan tampil sempurna di HP maupun laptop.
+<span class="nama-client">— Arif, Cirebon</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Sudah beberapa kali order di sini dan selalu puas. Pelayanan konsisten dan hasilnya tidak pernah mengecewakan.
+<span class="nama-client">— Hafiz, Balikpapan</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Project selesai sebelum deadline dan semua fitur yang diminta berjalan dengan baik.
+<span class="nama-client">— Putra, Samarinda</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Awalnya ragu karena harga murah, ternyata hasilnya sangat memuaskan dan melebihi ekspektasi.
+<span class="nama-client">— Deni, Pekanbaru</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Admin sangat sabar menjelaskan setiap bagian coding sehingga saya bisa belajar sambil menggunakan project.
+<span class="nama-client">— Farhan, Makassar</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Website bisnis saya sekarang terlihat premium dan berhasil menarik lebih banyak pelanggan.
+<span class="nama-client">— Ilham, Palembang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Sangat cocok untuk mahasiswa yang membutuhkan bantuan coding dengan harga terjangkau.
+<span class="nama-client">— Raka, Tangerang</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Floating WhatsApp, animasi, dan desain modern semuanya dibuat sesuai keinginan saya.
+<span class="nama-client">— Vino, Batam</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Pelayanan cepat, hasil memuaskan, dan komunikasi sangat mudah. Akan order lagi untuk project berikutnya.
+<span class="nama-client">— Dani, Surakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+NGODINGKU benar-benar membantu saya menyelesaikan project website dari nol hingga siap digunakan.
+<span class="nama-client">— Rahmat, Banjarmasin</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Hasil website sangat modern seperti perusahaan profesional. Teman-teman saya sampai mengira dibuat oleh agensi besar.
+<span class="nama-client">— Akbar, Jakarta</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Proses order mudah, pengerjaan cepat, dan kualitas coding sangat rapi.
+<span class="nama-client">— Yusuf, Bandung</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Saya pesan landing page untuk promosi produk dan hasilnya sangat menarik serta responsif.
+<span class="nama-client">— Rian, Surabaya</span>`,
+
+`<div class="rating">⭐⭐⭐⭐⭐</div>
+Salah satu jasa coding terbaik yang pernah saya gunakan. Sangat direkomendasikan.
+<span class="nama-client">— Bagas, Yogyakarta</span>`
+
+];
+
+let index = 0;
+
+setInterval(()=>{
+
+    const testi = document.getElementById("testi");
+
+    testi.style.opacity = "0";
+    testi.style.transform = "translateY(20px)";
+
+    setTimeout(()=>{
+
+        index = (index + 1) % data.length;
+
+        testi.innerHTML = data[index];
+
+        testi.style.opacity = "1";
+        testi.style.transform = "translateY(0)";
+
+    },500);
+
+},4000);
+</script>
+
+<body>
+
+<div id="website">
+    <section class="section" id="lihatPenjelasan"></section>
+
+    <h1>NGODINGKU</h1>
+    <p>Jasa Ngoding HTML, Python & Website Sederhana</p>
+
+    <button onclick="lihatPenjelasan()" class="menu-btn">
+    Penjelasan
+    </button>
+
+</div>
+
+<div id="penjelasan" style="display:none;">
+
+    <h1>📄 Penjelasan Project NGODINGKU</h1>
+
+    <p>
+
+    NGODINGKU merupakan sebuah website landing page yang
+    dirancang dan dikembangkan menggunakan teknologi
+    HTML5, CSS3, dan JavaScript. Website ini dibuat
+    dengan tujuan untuk menawarkan berbagai layanan
+    pemrograman kepada pelanggan, mulai dari pembuatan
+    website sederhana, landing page bisnis, script
+    Python, perbaikan bug, hingga pengembangan project
+    pemrograman sesuai kebutuhan pengguna.
+
+    <br><br>
+
+    Dalam proses pengembangannya, website ini mengutamakan
+    desain modern dengan konsep dark mode yang memberikan
+    tampilan profesional, elegan, dan nyaman dipandang
+    dalam jangka waktu yang lama. Pemilihan warna biru
+    sebagai warna utama bertujuan untuk memberikan kesan
+    teknologi, inovasi, dan profesionalisme yang sesuai
+    dengan bidang pemrograman.
+
+    <br><br>
+
+    Website ini juga dirancang menggunakan prinsip
+    Responsive Design sehingga tampilannya dapat
+    menyesuaikan berbagai ukuran layar perangkat,
+    baik smartphone, tablet, laptop, maupun desktop.
+    Dengan demikian pengguna tetap mendapatkan
+    pengalaman terbaik tanpa mengalami masalah
+    tampilan yang berantakan.
+
+    <br><br>
+
+    Salah satu fitur utama dari website ini adalah
+    sistem pemesanan otomatis melalui WhatsApp.
+    Ketika pengunjung memilih salah satu paket layanan,
+    JavaScript akan secara otomatis mengambil informasi
+    paket yang dipilih dan membuat format pesan yang
+    telah disiapkan sebelumnya. Setelah itu pengguna
+    akan langsung diarahkan ke WhatsApp dengan detail
+    pesanan yang sudah terisi sehingga proses pemesanan
+    menjadi lebih cepat, mudah, dan efisien.
+
+    <br><br>
+
+    Website ini memiliki beberapa bagian utama yang
+    saling terhubung melalui sistem navigasi smooth
+    scrolling. Fitur tersebut memungkinkan pengguna
+    berpindah ke bagian layanan, harga, testimoni,
+    maupun kontak dengan animasi perpindahan yang
+    halus dan nyaman digunakan.
+
+    <br><br>
+
+    Pada bagian layanan, website menampilkan berbagai
+    jenis jasa yang tersedia seperti pembuatan website
+    HTML & CSS, landing page modern, script Python,
+    perbaikan error program, dan pengembangan project
+    sederhana. Informasi ini disusun secara rapi agar
+    pengunjung dapat memahami layanan yang ditawarkan
+    dengan mudah.
+
+    <br><br>
+
+    Bagian daftar harga dirancang menggunakan sistem
+    card yang modern dan responsif. Setiap layanan
+    memiliki informasi harga yang jelas serta tombol
+    aksi yang dapat digunakan untuk melakukan pemesanan.
+    Struktur ini memudahkan pelanggan dalam membandingkan
+    layanan dan memilih paket yang paling sesuai dengan
+    kebutuhan mereka.
+
+    <br><br>
+
+    Selain itu terdapat bagian testimoni yang berfungsi
+    sebagai bukti sosial atau social proof. Testimoni
+    membantu meningkatkan kepercayaan calon pelanggan
+    karena mereka dapat melihat pengalaman pengguna lain
+    yang telah menggunakan layanan yang ditawarkan.
+
+    <br><br>
+
+    Pada bagian footer tersedia berbagai informasi
+    kontak seperti WhatsApp dan Instagram sehingga
+    pelanggan memiliki beberapa alternatif untuk
+    menghubungi admin. Website juga dilengkapi tombol
+    Floating WhatsApp yang selalu tampil di bagian
+    kanan bawah layar agar pengguna dapat menghubungi
+    admin kapan saja tanpa harus mencari informasi
+    kontak terlebih dahulu.
+
+    <br><br>
+
+    Dari sisi teknis, website ini dibangun dengan
+    struktur HTML yang terorganisir, CSS modern untuk
+    mengatur tampilan dan responsivitas, serta JavaScript
+    untuk menangani berbagai interaksi pengguna. Kombinasi
+    ketiga teknologi tersebut menghasilkan website yang
+    ringan, cepat, mudah dikembangkan, dan dapat dijadikan
+    dasar untuk pembuatan sistem yang lebih kompleks di
+    masa mendatang.
+
+    <br><br>
+
+    Secara keseluruhan, NGODINGKU merupakan sebuah
+    website promosi jasa pemrograman yang tidak hanya
+    berfungsi sebagai media informasi, tetapi juga
+    sebagai sarana komunikasi dan pemesanan yang
+    praktis. Dengan desain modern, performa ringan,
+    fitur interaktif, serta integrasi WhatsApp otomatis,
+    website ini mampu memberikan pengalaman pengguna
+    yang profesional dan mempermudah proses transaksi
+    antara pelanggan dan penyedia jasa.
+
+    </p>
+
+    <button onclick="kembaliKeWebsite()">
+        ⬅ Kembali
+    </button>
+
+</div>
+
+<script>
+
+function lihatPenjelasan(){
+
+    document.getElementById("website").style.display = "none";
+    document.getElementById("penjelasan").style.display = "block";
+
+    // langsung pindah ke elemen penjelasan
+    document.getElementById("penjelasan").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+function kembaliKeWebsite(){
+
+    document.getElementById("penjelasan").style.display = "none";
+    document.getElementById("website").style.display = "flex";
+
+    document.getElementById("website").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+</script>
 
 <footer id="kontak">
 
-    <h3>Hubungi Kami</h3>
     <br>
 
     <footer id="kontak">
@@ -449,7 +1349,7 @@ Mohon informasi lebih lanjut. Terima kasih.`;
     <h3>Hubungi Kami</h3>
 
     <p>
-        WhatsApp: 085860612529
+        WhatsApp: 6285860612529
     </p>
 
     <p>
@@ -472,4 +1372,4 @@ class="floating-chat">
 </a>
 
 </body>
-</html>
+<html>
